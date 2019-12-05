@@ -10,36 +10,28 @@
 </head>
 
 <body>
-    <div class="container">
+
+    <div class="container mt-4">
         <div class="row">
-            <div class="col-12 mt-5">
-                <select id="category">
-                    <option value="#">Select which one do you like</option>
-                    <option value="0">Avocado Shake (Toek KaLok) </option>
-                    <option value="1">French creps </option>
-                </select>
-            </div>
-        </div>
-        <div class="row result1">
-
-        </div>
-        <div class="row result2">
-
-        </div>
-        <div class="row ">
+            <div class="col-3"></div>
             <div class="col-6">
-                <h4>ingradients</h4>
+                <form action="#">
+                    <div class="form-group">
+                        <select id="select"class="form-control">
+                            <option  value="" desabled selected> Select one...</option>
+                            <option value="0">Avocado Shake (Toek KaLok)</option>
+                            <option value="1">French creps</option>
+                            <option value="2">nompom</option>
+                        </select>
+                    </div>
+                </form>
             </div>
-
-            <div class="col-6">
-                <div class="row result3">
-
-                </div>
-            </div>
+            <div class="col-3"></div>
         </div>
+        <div id="ingredient"></div>
     </div>
     <script src="js/jquery-3.4.1.min.js"></script>
-    <script src="js/practice.js"></script>
+    <script src="js/process.js"></script>
 </body>
 
 </html>
