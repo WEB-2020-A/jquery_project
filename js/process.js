@@ -1,8 +1,12 @@
+
 // Start to user jquery
 $(document).ready(() => {
-    $("#select").on("change", () => {
-        requestApi();
+    requestApi();
+    $("#recipe").on("change", () => {
+        var recipeId = $("#recipe").val();
+        selectRecipe(recipeId);
     });
+
 });
 // function to request api 
 var requestApi = () => {
@@ -13,74 +17,68 @@ var requestApi = () => {
         error: () => console.log("error"),
     });
 }
+// fuction request url 
 
-// fuction reques url 
-
-function getUrl(){
+function getUrl() {
     var url = "https://raw.githubusercontent.com/radytrainer/test-api/master/test.json";
     return url;
 }
 
 // fuction getRcipe 
-
-function getRecipe(data){
+var allData = [];
+function getRecipe(data) {
+    allData = data;
+    var option = "";
     data.recipes.forEach(element => {
-        var select = $("#select").val();
-        var { id, iconUrl, name,ingredients,instructions } = element;
-     
-        if (select == id) {
-            var result = "";
-            result +=`
-            <div class = "row">
-                <div class="col-6">
-                    <h3>${name}</h3>
-                </div>
-                <div class="col-6">
-                    <img src ="${iconUrl}" style="width:150px">
-                </div>
-            </div>
-            `;
-            
-            $("#cake").html(result);
-            getIngredient(ingredients);
-            getInstructions(instructions);
+        var { id, name } = element;
+        option += `
+            <option value ="${id}">${name}</option>
+        `;
+    });
+    $("#recipe").append(option);
+}
+// select recipi
+function selectRecipe(myId) {
+    allData.recipes.forEach(item => {
+        var { id, name, iconUrl, nbGuests, instructions, ingredients } = item;
+        if (id == myId) {
+            eachRecipe(name, iconUrl);
+            inGredient(ingredients);
         }
     });
 }
+// function each recipe 
 
-// function get ingredient 
-
-function getIngredient(ingredients){
-    ingredients.forEach(ing =>{
-        var {name,quantity,unit,iconUrl} = ing;
-        var result = "";
-        result +=`
-        <div class ="row mt-3">
-                <div class ="row">
-                    <div class = "col-4">
-                        <img src ="${iconUrl}" style="width:40px">
-                    </div>
-                    <div class = "col-4">
-                        ${quantity}  ${unit[0]}
-                    </div>
-                    <div class = "col-4">
-                        ${name}
-                    </div>
-                </div>
+function eachRecipe(name, iconUrl) {
+    var result = "";
+    result += `
+        <div class="col-6">
+            <h4>${name}</h4>
         </div>
-        `;
-        $("#ingredient").append(result);
-    })
+        <div class="col-6">
+            <img src = "${iconUrl}" style="width:200px">
+        </div>
+   `;
+    $(".cake").html(result);
 }
-
-// function instuction 
-
-function getInstructions(ins){
-    ins.forEach(ins =>{
-        var instructions = "";
-        instructions +=`
-            ${ins};
+// ingredient 
+function inGredient(ingredients) {
+    var result = "";
+    ingredients.forEach(item => {
+        var { name, quantity, unit, iconUrl } = item;
+        result += `
+            <div class="col-6">
+            
+                <div class = "row">
+                    <div class = "col-4"><img src = "${iconUrl}" style="width:40px"></div>
+                    <div class = "col-4">${quantity} ${unit[0]}</div>
+                    <div class = "col-4">${name}</div>
+                </div>
+            </div>
+            <div class="col-6">
+    
+            </div>
         `;
-        $("#instruction").html(instructions);
     });
+    $(".ingredient").html(result);
 }
