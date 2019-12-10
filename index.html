@@ -10,22 +10,42 @@
 </head>
 
 <body>
-
+<!-- select -->
     <div class="container mt-4">
-        <div class="row">
-            <div class="col-4"></div>
-            <div class="col-4">
-                <select id="recipe" class="form-control">
-                    <option value="" disabled selected>Select one...</option>
-                </select>
-            </div>
-            <div class="col-4"></div>
+        <div class="col-4"></div>
+        <div class="col-4">
+            <select id="recipe" class="form-control">
+                <option value="" disabled selected>Select one...</option>
+            </select>
         </div>
-        <div class="mt-5 row cake"></div>
-        <h3 id=""></h3>
-        <div class="mt-5 row ingredient"></div>
+        <div class="col-4"></div>
     </div>
+    <div class="container">
+        <div class="mt-5 row cake"></div>
+        <!-- count -->
+        <div class="row m-5">
+            <div class="col-6 ">
+                <h4 id="person"></h4>
+            </div>
+            <div class="col-6">
+                <div id="count">
 
+                </div>
+            </div>
+        </div>
+        <!-- display result -->
+        <div class="mt-5 row ">
+            <div class="col-6 ">
+                <h3 id="ing"></h3>
+                <div id="ingredient"></div>
+            </div>
+            <div class="col-6 ">
+                <h3 id="ins"></h3>
+                <div id="instructions"></div>
+            </div>
+        </div>
+    </div>
+   
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/process.js"></script>
 </body>
