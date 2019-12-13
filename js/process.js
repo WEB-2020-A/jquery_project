@@ -40,7 +40,7 @@ function selectRecipe(myId) {
     allData.recipes.forEach(item => {
         var { id, name, iconUrl, nbGuests, instructions, ingredients } = item;
         if (id == myId) {
-            eachRecipe(name, iconUrl);
+            eachRecipe(name, iconUrl); 
             inGredient(ingredients);
             inStructions(instructions);
             numberGuests(nbGuests);
@@ -78,14 +78,20 @@ function inGredient(ingredients) {
     $("#ing").html("Ingredients");
 }
 // instruction 
-function inStructions(instructions) {
-    var result = "";
-    result += `
-        ${instructions}
-    `;
+function inStructions(step) {
+    var data = step.split('<step>');
+    var instruction = "";
+    var i = 1;
+    for (let i = 1; i < data.length; i++) {
+        instruction += `
+                <h5 class="text-primary">Step ${i} </h5> 
+                <p>${data[i]}</p>
+        `;
+    }
     $("#ins").html("Instructions");
-    $("#instructions").html(result);
+    $("#instructions").html(instruction);
 }
+
 // number guest 
 
 function numberGuests(guest) {
@@ -110,31 +116,28 @@ function computeNumber() {
     $('#minus').on('click', function () {
         var members = $('#member').val();
         decreaseMember(members);
+        
     });
     $('#add').on('click', function () {
         var members = $('#member').val();
         increaseMember(members);
+     
     });
 }
 // decrease number
-function decreaseMember (minus) {
+function decreaseMember(minus) {
     var member = parseInt(minus) - 1;
-    if(member >= 0) {
-      $('#member').val(member);
-      quantityDecrease();
+    if (member >= 0) {
+        $('#member').val(member);
+        console.log(member);
     }
-    
-}
+ }
 
 // increase number
 function increaseMember(add) {
     var members = parseInt(add) + 1;
-    if(members <= 15) {
-    $('#member').val(members);
+    if (members <= 15) {
+        var inc = $('#member').val(members);
+        console.log(inc);
     }
 }
-// quantityDecrease
-function quantityDecrease(){
-    var quantity = $("#quantity").val();
-    console.log(quantity);
-    }
