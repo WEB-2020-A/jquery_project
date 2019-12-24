@@ -6,13 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lobster|Ma+Shan+Zheng&display=swap" rel="stylesheet">
     <title>makara_jquery_project</title>
+    <style>
+        body {
+            background-image: url('img/2.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            font-family: cursive;
+            opacity: 1;
+        }
+
+        #line {
+            border-right: 3px solid;
+        }
+
+        .count {
+            border: 3px solid;
+            border-radius: 10px;
+        }
+
+        button {
+            border: hidden;
+        }
+
+        #container {
+            background-color: white;
+            opacity: 0.9;
+            border-radius: 5px;
+            }
+    </style>
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-sm">
+        <a class="navbar-brand" href="#">
+            <h1>pncfood</h1>
+        </a>
+    </nav>
     <!-- select -->
-    <div class="container mt-4">
-        <div class="row">
+    <div class="container mt-5 mb-5">
+        <div class="row ">
             <div class="col-4"></div>
             <div class="col-4">
                 <select id="recipe" class="form-control">
@@ -22,34 +56,67 @@
             <div class="col-4"></div>
         </div>
     </div>
-    <div class="container">
-        <div class="mt-5 row cake"></div>
-        <!-- number of person -->
-        <div class="row m-5">
-            <div class="col-6 ">
-                <h4 id="person"></h4>
+    <hr>
+    <div class="container" id="container">
+        <div class="row ">
+            <div class="col-lg-6 col-sm-12 mt-5">
+                <div class="text-center" id="name"></div>
             </div>
-            <!-- count -->
-            <div class="col-6">
-                <div id="count">
-
+            <div class="col-lg-6 col-sm-12 cake mt-5"></div>
+        </div>
+        <!-- display result person -->
+        <div class="row mt-4">
+            <div class="col-6 ">
+                <div class="row">
+                    <div class="col-6 "></div>
+                    <div class="col-6 ">
+                        <h4 class="person"></h4>
+                        <div class="count"></div>
+                    </div>
                 </div>
             </div>
+            <div class="col-6 "></div>
         </div>
-        <!-- display result incredient -->
+        <!-- ingredient -->
         <div class="mt-5 row ">
-            <div class="col-6 ">
+            <div class="col-lg-6 col-sm-12">
                 <h3 id="ing"></h3>
-                <div id="ingredient" class="border-left"></div>
+                <div id="ingredient"></div>
             </div>
+
             <!-- display result instruction -->
-            <div class="col-6 ">
+            <div class="col-lg-6 col-sm-12">
                 <h3 id="ins"></h3>
                 <div id="instructions"></div>
             </div>
         </div>
     </div>
-
+    <footer class="container">
+        <h1 class="text-center">Welcome To PNC Food</h1>
+        <div class="row">
+            <div class="col-3">
+                <div class="card">
+                    <img src="img/p1.jpg"class="img-fluid ">
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card">
+                    <img src="img/p2.jpg"class="img-fluid">
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card">
+                    <img src="img/p3.jpg"class="img-fluid">
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card">
+                    <img src="img/p4.jpg"class="img-fluid">
+                </div>
+            </div>
+            
+        </div>
+    </footer>
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/process.js"></script>
 </body>

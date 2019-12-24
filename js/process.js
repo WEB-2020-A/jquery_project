@@ -1,10 +1,16 @@
 
 // Start to user jquery
 $(document).ready(() => {
+    $("#line").hide();
+    $(".count").hide();
+    $("#container").hide();
     requestApi();
     $("#recipe").on("change", () => {
         var recipeId = $("#recipe").val();
         selectRecipe(recipeId);
+        $("#line").show();
+    $(".count").show();
+    $("#container").show();
     });
 });
 // function to request api 
@@ -17,7 +23,6 @@ var requestApi = () => {
     });
 }
 // fuction request url 
-
 function getUrl() {
     var url = "https://raw.githubusercontent.com/radytrainer/test-api/master/test.json";
     return url;
@@ -36,38 +41,44 @@ function getRecipe(data) {
     $("#recipe").append(option);
 }
 // select recipi
+var quan = [];
+var oldGuest = 0;
 function selectRecipe(myId) {
     allData.recipes.forEach(item => {
         var { id, name, iconUrl, nbGuests, instructions, ingredients } = item;
+        quan = ingredients;
         if (id == myId) {
-            eachRecipe(name, iconUrl); 
+            eachRecipe(name, iconUrl);
             inGredient(ingredients);
             inStructions(instructions);
             numberGuests(nbGuests);
+            getQuantiy = item;
+            oldGuest = nbGuests;
         }
     });
 }
 // function each recipe 
 function eachRecipe(name, iconUrl) {
-    var result = "";
-    result += `
-        <div class="col-6">
-            <h4>${name.toString()}</h4>
-        </div>
-        <div class="col-6">
-            <img src = "${iconUrl.toString()}" style="width:200px">
-        </div>
+    var url = "";
+    url += `
+    <img src = "${iconUrl.toString()}"style="width:300px"class="rounded ">
    `;
-    $(".cake").html(result);
+    $(".cake").html(url); 
+    var nameRecipe ="";
+    nameRecipe +=`
+    <h2>${name.toString()}</h2>
+    `;
+$("#name").html(nameRecipe);
 }
-// ingredient 
+// ingredient
 function inGredient(ingredients) {
     var result = "";
     ingredients.forEach(item => {
         var { name, quantity, unit, iconUrl } = item;
+        quan = quantity;
         result += `
                 <div class = "row mt-3">
-                    <div class = "col-4"><img src = "${iconUrl.toString()}" style="width:40px"></div>
+                    <div class = "col-4"><img src = "${iconUrl.toString()}" style="width:60px" class="rounded"></div>
                     <div class = "col-1" id ="quantity" value ="${quantity}">${quantity}</div>
                     <div class = "col-3"> ${unit[0].toLowerCase()}</div>
                     <div class = "col-4">${name}</div>
@@ -97,47 +108,85 @@ function inStructions(step) {
 function numberGuests(guest) {
     var result = "";
     result += `
-    <div class="input-group mb-3">
-    <div class="input-group-prepend">
-        <button class="btn btn-primary" type="button" id="minus">&minus;</button>
+    <div class="input-group mb-3 mt-3">
+    <div class="input-group-prepend ">
+        <button type="button" class="btn btn-info" id="minus">&minus;</button>
     </div>
-    <input type="number" class="form-control text-center" value="${guest}" disabled id="member" max="15" min="0">
+    <input type="number" class="form-control text-center " value="${guest}" disabled id="member" max="15" min="0">
     <div class="input-group-append">
-        <button class="btn btn-success" type="button" id="add">&#x2b;</button>
+        <button type="button" class="btn btn-success" id="add">&#x2b;</button>
     </div>
 </div>
     `;
-    $("#count").html(result);
-    $("#person").html("Number of person");
+    $(".count").html(result);
+    $(".person").html("Number of person");
     computeNumber();
 }
 // compute number function 
 function computeNumber() {
+
     $('#minus').on('click', function () {
-        var members = $('#member').val();
-        decreaseMember(members);
-        
+        decreaseMember();
     });
     $('#add').on('click', function () {
-        var members = $('#member').val();
-        increaseMember(members);
-     
+        increaseMember();
     });
 }
 // decrease number
+var member = "";
 function decreaseMember(minus) {
+    var minus = $('#member').val();
     var member = parseInt(minus) - 1;
-    if (member >= 0) {
+    if (member >= 1) {
         $('#member').val(member);
-        console.log(member);
+        mal($("#member").val());
     }
- }
+}
 
 // increase number
 function increaseMember(add) {
+
+    var add = $('#member').val();
     var members = parseInt(add) + 1;
     if (members <= 15) {
-        var inc = $('#member').val(members);
-        console.log(inc);
+        $('#member').val(members);
+        mal($("#member").val());
     }
+}
+
+// calculate
+function userInput(values) {
+    var getValue = parseInt(values) + 1;
+    if (getValue <= 15) {
+        $('#value').val(getValue);
+        mal($("#member").val());
+    }
+}
+
+function lowInput(values) {
+    var lowValue = parseInt(values) - 1;
+    if (lowValue >= 1) {
+
+        $('#value').val(lowValue);
+        mal($("#value").val());
+    }
+}
+function mal(output) {
+    var quan;
+    var newQuan;
+    var result = "";
+    getQuantiy.ingredients.forEach(el => {
+        var { iconUrl, quantity, name, unit } = el;
+        quan = quantity / oldGuest;
+        newQuan = quan * output;
+        result += `
+        <div class = "row mt-3">
+        <div class = "col-4"><img src = "${iconUrl.toString()}" class="rounded" style="width:60px"></div>
+        <div class = "col-1" id ="quantity" value ="${quantity}">${newQuan}</div>
+        <div class = "col-3"> ${unit[0].toLowerCase()}</div>
+        <div class = "col-4">${name}</div>
+    </div>      
+    `;
+        $("#ingredient").html(result);
+    })
 }
